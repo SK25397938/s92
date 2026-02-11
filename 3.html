@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn - S92</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-green: #1a7c5c;
+            --dark-green: #0d3d2e;
+            --light-green: #2e9d75;
+            --accent-green: #4ecdc4;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* NAVBAR */
+        nav {
+            background-color: var(--primary-green);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* LEARN SECTION */
+        .learn-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 2rem;
+        }
+
+        .learn-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-green);
+            margin-bottom: 2rem;
+        }
+
+        .learn-container {
+            display: flex;
+            gap: 2rem;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 260px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-item {
+            height: 45px;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            transition: 0.3s ease;
+        }
+
+        .sidebar-item:hover {
+            background-color: var(--light-green);
+        }
+
+        /* CONTENT AREA */
+        .content-area {
+            flex: 1;
+            background-color: white;
+            border-radius: 12px;
+            min-height: 450px;
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--dark-green);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-green);
+        }
+
+        @media (max-width: 900px) {
+            .learn-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="nav-container">
+        <a href="#" class="logo">
+            <i class="fas fa-shield-alt"></i>
+            S - 92
+        </a>
+<ul class="nav-links">
+    <li><a href="1.html">Home</a></li>
+    <li><a href="3.html">Learn</a></li>
+    <li><a href="4.html">News</a></li>
+    <li><a href="2.html">Dashboard</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Login</a></li>
+    <li><a href="#">Sign Up</a></li>
+</ul>
+
+    </div>
+</nav>
+
+
+<!-- LEARN PAGE -->
+<section class="learn-section">
+    <h1 class="learn-title">Learn</h1>
+
+    <div class="learn-container">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-item"></div>
+            <div class="sidebar-item"></div>
+            <div class="sidebar-item"></div>
+            <div class="sidebar-item"></div>
+            <div class="sidebar-item"></div>
+            <div class="sidebar-item"></div>
+            <div class="sidebar-item"></div>
+            <div class="sidebar-item"></div>
+        </div>
+
+        <!-- Blank Content Area -->
+        <div class="content-area">
+            <!-- Content will be added later -->
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Support</a>
+        <a href="#">Documentation</a>
+    </div>
+    <p>&copy; 2026 S92 Compliance Solutions. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

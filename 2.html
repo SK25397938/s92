@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S92 - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-green: #1a7c5c;
+            --dark-green: #0d3d2e;
+            --light-green: #2e9d75;
+            --accent-green: #4ecdc4;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--primary-green);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-green);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Dashboard Header */
+        .dashboard-header {
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-title {
+            font-size: 2rem;
+            color: var(--dark-green);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Dashboard Buttons */
+        .dashboard-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-btn {
+            background-color: #000;
+            color: var(--text-light);
+            border: 2px solid var(--light-green);
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dashboard-btn:hover {
+            background-color: var(--light-green);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .dashboard-btn.active {
+            background-color: var(--light-green);
+        }
+
+        /* Dashboard Sections */
+        .dashboard-sections {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .dashboard-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--dark-green);
+            font-weight: 600;
+        }
+
+        .section-action {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .section-action:hover {
+            color: var(--light-green);
+        }
+
+        /* Charts Container */
+        .charts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .chart-container {
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: 300px;
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Tax Slabs Section */
+        .tax-slabs-container {
+            margin-top: 1.5rem;
+        }
+
+        .tax-slab-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tax-slab-label {
+            width: 120px;
+            font-weight: 500;
+        }
+
+        .tax-slab-bar-container {
+            flex-grow: 1;
+            height: 30px;
+            background-color: var(--bg-light);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tax-slab-bar {
+            height: 100%;
+            background-color: var(--primary-green);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-buttons {
+                flex-direction: column;
+            }
+
+            .dashboard-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+    <div class="nav-container">
+        <a href="#" class="logo">
+            <i class="fas fa-shield-alt"></i>
+            S - 92
+        </a>
+<ul class="nav-links">
+    <li><a href="1.html">Home</a></li>
+    <li><a href="3.html">Learn</a></li>
+    <li><a href="4.html">News</a></li>
+    <li><a href="2.html">Dashboard</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Contact</a></li>
+    <li><a href="#">Login</a></li>
+    <li><a href="#">Sign Up</a></li>
+</ul>
+
+    </div>
+</nav>
+
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+        <!-- Dashboard Header -->
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Dashboard</h1>
+        </div>
+
+        <!-- Dashboard Buttons -->
+        <div class="dashboard-buttons">
+            <button class="dashboard-btn active" id="budget-btn">
+                <i class="fas fa-calculator"></i>
+                Budget 2026
+            </button>
+            <button class="dashboard-btn" id="tax-btn">
+                <i class="fas fa-receipt"></i>
+                Indian Tax Slabs
+            </button>
+            <button class="dashboard-btn" id="rbi-btn">
+                <i class="fas fa-university"></i>
+                RBI Guidelines
+            </button>
+        </div>
+
+        <!-- Dashboard Sections -->
+        <div class="dashboard-sections">
+            <!-- Budget 2026 Section -->
+            <div class="dashboard-section" id="budget-section">
+                <div class="section-header">
+                    <h2 class="section-title">BUDGET 2026</h2>
+                    <a href="#" class="section-action">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </a>
+                </div>
+                
+                <div class="charts-container">
+                    <div class="chart-container">
+                        <h3 class="chart-title">Budget Allocation</h3>
+                        <canvas id="budgetPieChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3 class="chart-title">Monthly Expenses</h3>
+                        <canvas id="expensesBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Indian Tax Slabs Section -->
+            <div class="dashboard-section" id="tax-section">
+                <div class="section-header">
+                    <h2 class="section-title">INDIAN TAX SLABS</h2>
+                    <a href="#" class="section-action">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </a>
+                </div>
+                
+                <div class="tax-slabs-container">
+                    <div class="tax-slab-item">
+                        <div class="tax-slab-label">0 - 5L</div>
+                        <div class="tax-slab-bar-container">
+                            <div class="tax-slab-bar" style="width: 0%;">0%</div>
+                        </div>
+                    </div>
+                    <div class="tax-slab-item">
+                        <div class="tax-slab-label">5L - 10L</div>
+                        <div class="tax-slab-bar-container">
+                            <div class="tax-slab-bar" style="width: 20%;">20%</div>
+                        </div>
+                    </div>
+                    <div class="tax-slab-item">
+                        <div class="tax-slab-label">10L - 20L</div>
+                        <div class="tax-slab-bar-container">
+                            <div class="tax-slab-bar" style="width: 30%;">30%</div>
+                        </div>
+                    </div>
+                    <div class="tax-slab-item">
+                        <div class="tax-slab-label">> 20L</div>
+                        <div class="tax-slab-bar-container">
+                            <div class="tax-slab-bar" style="width: 30%;">30%</div>
+                        </div>
+                    </div>
+                    <div class="tax-slab-item">
+                        <div class="tax-slab-label">> 50L</div>
+                        <div class="tax-slab-bar-container">
+                            <div class="tax-slab-bar" style="width: 30%;">30%</div>
+                        </div>
+                    </div>
+                    <div class="tax-slab-item">
+                        <div class="tax-slab-label">> 101L</div>
+                        <div class="tax-slab-bar-container">
+                            <div class="tax-slab-bar" style="width: 30%;">30%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RBI Guidelines Section (Hidden by default) -->
+            <div class="dashboard-section" id="rbi-section" style="display: none;">
+                <div class="section-header">
+                    <h2 class="section-title">RBI GUIDELINES</h2>
+                    <a href="#" class="section-action">
+                        <i class="fas fa-download"></i>
+                        Export
+                    </a>
+                </div>
+                
+                <div style="padding: 2rem; text-align: center; color: #666;">
+                    <i class="fas fa-university" style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary-green);"></i>
+                    <p>RBI Guidelines content will be displayed here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard Button Functionality
+        const budgetBtn = document.getElementById('budget-btn');
+        const taxBtn = document.getElementById('tax-btn');
+        const rbiBtn = document.getElementById('rbi-btn');
+        
+        const budgetSection = document.getElementById('budget-section');
+        const taxSection = document.getElementById('tax-section');
+        const rbiSection = document.getElementById('rbi-section');
+        
+        // Show Budget Section by default
+        budgetSection.style.display = 'block';
+        taxSection.style.display = 'none';
+        rbiSection.style.display = 'none';
+        
+        budgetBtn.addEventListener('click', function() {
+            // Update button states
+            budgetBtn.classList.add('active');
+            taxBtn.classList.remove('active');
+            rbiBtn.classList.remove('active');
+            
+            // Update section visibility
+            budgetSection.style.display = 'block';
+            taxSection.style.display = 'none';
+            rbiSection.style.display = 'none';
+        });
+        
+        taxBtn.addEventListener('click', function() {
+            // Update button states
+            budgetBtn.classList.remove('active');
+            taxBtn.classList.add('active');
+            rbiBtn.classList.remove('active');
+            
+            // Update section visibility
+            budgetSection.style.display = 'none';
+            taxSection.style.display = 'block';
+            rbiSection.style.display = 'none';
+        });
+        
+        rbiBtn.addEventListener('click', function() {
+            // Update button states
+            budgetBtn.classList.remove('active');
+            taxBtn.classList.remove('active');
+            rbiBtn.classList.add('active');
+            
+            // Update section visibility
+            budgetSection.style.display = 'none';
+            taxSection.style.display = 'none';
+            rbiSection.style.display = 'block';
+        });
+        
+        // Budget Pie Chart
+        const budgetCtx = document.getElementById('budgetPieChart').getContext('2d');
+        const budgetPieChart = new Chart(budgetCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Infrastructure', 'Healthcare', 'Education', 'Defense', 'Others'],
+                datasets: [{
+                    data: [30, 25, 20, 15, 10],
+                    backgroundColor: [
+                        '#1a7c5c',
+                        '#2e9d75',
+                        '#4ecdc4',
+                        '#6dd5d1',
+                        '#8fe3e0'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    }
+                }
+            }
+        });
+        
+        // Monthly Expenses Bar Chart
+        const expensesCtx = document.getElementById('expensesBarChart').getContext('2d');
+        const expensesBarChart = new Chart(expensesCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Expenses (in Lakhs)',
+                    data: [65, 59, 80, 81, 56, 55],
+                    backgroundColor: '#1a7c5c',
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
