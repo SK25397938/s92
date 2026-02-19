@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <title>Learn - S92</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         :root {
             --primary-green: #1a7c5c;
@@ -15,10 +13,11 @@
             --light-green: #2e9d75;
             --accent-green: #4ecdc4;
             --text-light: #ffffff;
-            --text-dark: #333333;
+            --text-dark: #e0e0e0;
             --bg-light: #f8f9fa;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-hover: 0 10px 20px rgba(0, 0, 0, 0.15);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -29,203 +28,403 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
+            background: #000;
             color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
 
-        /* NAVBAR */
+        .orb-bg {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            background: radial-gradient(circle at 50% 50%, #0a0a0a, #000000);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.35;
+            will-change: transform;
+        }
+
+        .orb1 { width: 600px; height: 600px; background: var(--primary-green); top: -10%; left: 10%; }
+        .orb2 { width: 500px; height: 500px; background: var(--accent-green); bottom: -5%; right: 10%; }
+        .orb3 { width: 450px; height: 450px; background: var(--light-green); top: 40%; left: 50%; }
+        .orb4 { width: 300px; height: 300px; background: var(--dark-green); top: 20%; right: 30%; }
+
+        .glass-layer {
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(60px) saturate(150%);
+            background: rgba(0, 0, 0, 0.4);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
         nav {
-            background-color: var(--primary-green);
-            padding: 1rem 2rem;
-            box-shadow: var(--shadow);
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(20px);
+            padding: 1.2rem 4rem;
+            box-shadow: 0 1px 0 var(--glass-border);
             position: sticky;
             top: 0;
             z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            color: white;
+            color: var(--text-light);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            letter-spacing: 1px;
         }
+
+        .logo i { font-size: 1.6rem; color: var(--accent-green); }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text-dark);
             text-decoration: none;
             font-weight: 500;
-            transition: 0.3s ease;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-green);
+        .nav-links a:hover { color: var(--text-light); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-green);
+            transition: width 0.3s ease;
         }
 
-        /* LEARN SECTION */
+        .nav-links a:hover::after { width: 100%; }
+
         .learn-section {
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 0 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 4rem;
+            flex: 1;
         }
 
         .learn-title {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
-            color: var(--dark-green);
-            margin-bottom: 2rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.5px;
         }
 
         .learn-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 280px 1fr;
             gap: 2rem;
+            position: relative;
         }
 
-        /* SIDEBAR */
         .sidebar {
-            width: 260px;
-            background-color: white;
+            background: var(--glass-bg);
             padding: 1.5rem;
-            border-radius: 12px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
             box-shadow: var(--shadow);
+            height: fit-content;
+            position: relative;
+            overflow: hidden;
         }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(78, 205, 196, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .sidebar:hover::before { opacity: 1; }
 
         .sidebar-item {
-            height: 45px;
-            background-color: #e9ecef;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            transition: 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-dark);
+            font-weight: 500;
+            border: 1px solid transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sidebar-item i {
+            width: 20px;
+            text-align: center;
+            color: var(--accent-green);
         }
 
         .sidebar-item:hover {
-            background-color: var(--light-green);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            border-color: var(--glass-border);
         }
 
-        /* CONTENT AREA */
-        .content-area {
-            flex: 1;
-            background-color: white;
-            border-radius: 12px;
-            min-height: 450px;
-            box-shadow: var(--shadow);
-            padding: 2rem;
-        }
-
-        /* FOOTER */
-        footer {
-            background-color: var(--dark-green);
+        .sidebar-item.active {
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
             color: white;
-            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(42, 157, 117, 0.2);
+        }
+        
+        .sidebar-item.active i {
+            color: white;
+        }
+
+        .content-area {
+            background: var(--glass-bg);
+            border-radius: 24px;
+            min-height: 600px;
+            box-shadow: var(--shadow);
+            padding: 2.5rem;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-area::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(78, 205, 196, 0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .content-area:hover::before { opacity: 1; }
+
+        .content-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-height: 500px;
             text-align: center;
-            margin-top: 80px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .content-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-light);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: auto;
         }
 
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
+            gap: 3rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .footer-links a {
-            color: white;
+            color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
 
-        .footer-links a:hover {
-            color: var(--accent-green);
+        .footer-links a:hover { color: var(--accent-green); }
+
+        .copyright { font-size: 0.9rem; opacity: 0.5; }
+
+        @media (max-width: 1024px) {
+            nav { padding: 1rem 2rem; }
+            .learn-section { padding: 2rem; }
+            .learn-container { grid-template-columns: 1fr; }
+            .sidebar { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .sidebar-item { margin-bottom: 0; }
         }
 
-        @media (max-width: 900px) {
-            .learn-container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-            }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .learn-title { font-size: 2rem; }
+            .sidebar { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
-<nav>
-    <div class="nav-container">
+<div class="orb-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="orb orb4"></div>
+</div>
+
+<div class="glass-layer">
+    <nav>
         <a href="#" class="logo">
             <i class="fas fa-shield-alt"></i>
             S - 92
         </a>
-<ul class="nav-links">
-    <li><a href="1.html">Home</a></li>
-    <li><a href="3.html">Learn</a></li>
-    <li><a href="4.html">News</a></li>
-    <li><a href="2.html">Dashboard</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">Contact</a></li>
-    <li><a href="#">Login</a></li>
-    <li><a href="#">Sign Up</a></li>
-</ul>
+        <ul class="nav-links">
+            <li><a href="1.html">Home</a></li>
+            <li><a href="3.html">Learn</a></li>
+            <li><a href="4.html">News</a></li>
+            <li><a href="2.html">Dashboard</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Sign Up</a></li>
+        </ul>
+    </nav>
 
-    </div>
-</nav>
+    <section class="learn-section">
+        <h1 class="learn-title">Learn</h1>
+        <div class="learn-container">
+            <div class="sidebar">
+                <div class="sidebar-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Introduction</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Tax Compliance</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-university"></i>
+                    <span>RBI Guidelines</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Forex Regulations</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-landmark"></i>
+                    <span>Banking Norms</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Audit Reports</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-gavel"></i>
+                    <span>Legal Framework</span>
+                </div>
+                <div class="sidebar-item">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQs</span>
+                </div>
+            </div>
 
-
-<!-- LEARN PAGE -->
-<section class="learn-section">
-    <h1 class="learn-title">Learn</h1>
-
-    <div class="learn-container">
-
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-item"></div>
-            <div class="sidebar-item"></div>
-            <div class="sidebar-item"></div>
-            <div class="sidebar-item"></div>
-            <div class="sidebar-item"></div>
-            <div class="sidebar-item"></div>
-            <div class="sidebar-item"></div>
-            <div class="sidebar-item"></div>
+            <div class="content-area">
+                <div class="content-placeholder">
+                    <i class="fas fa-book-open"></i>
+                    <h2 style="font-size: 1.5rem; color: var(--text-light); margin-bottom: 0.5rem;">Select a Topic</h2>
+                    <p>Choose a module from the sidebar to begin learning about compliance regulations.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Blank Content Area -->
-        <div class="content-area">
-            <!-- Content will be added later -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Support</a>
+            <a href="#">Documentation</a>
         </div>
+        <p class="copyright">&copy; 2026 S92 Compliance Solutions. All rights reserved.</p>
+    </footer>
+</div>
 
-    </div>
-</section>
+<script>
+    // Sidebar item active state toggle
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    sidebarItems.forEach(item => {
+        item.addEventListener('click', () => {
+            sidebarItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+        });
+    });
 
-<!-- FOOTER -->
-<footer>
-    <div class="footer-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Support</a>
-        <a href="#">Documentation</a>
-    </div>
-    <p>&copy; 2026 S92 Compliance Solutions. All rights reserved.</p>
-</footer>
+    // Orb wiggle effect
+    const orbs = document.querySelectorAll('.orb');
+    window.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        orbs.forEach((orb) => {
+            const rect = orb.getBoundingClientRect();
+            const orbCenterX = rect.left + rect.width / 2;
+            const orbCenterY = rect.top + rect.height / 2;
+            const deltaX = mouseX - orbCenterX;
+            const deltaY = mouseY - orbCenterY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            const maxDistance = 600;
+
+            if (distance < maxDistance) {
+                const strength = (maxDistance - distance) / maxDistance;
+                const moveX = -deltaX * strength * 0.3;
+                const moveY = -deltaY * strength * 0.3;
+                const rotate = strength * 15 * (deltaX > 0 ? 1 : -1);
+                orb.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotate}deg)`;
+            } else {
+                orb.style.transform = `translate(0px, 0px) rotate(0deg)`;
+            }
+        });
+    });
+
+    // Card glow effect
+    const glassCards = document.querySelectorAll('.sidebar, .content-area');
+    glassCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+</script>
 
 </body>
 </html>
