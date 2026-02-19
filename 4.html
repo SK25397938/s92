@@ -9,269 +9,456 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-:root{
-    --primary-green:#1a7c5c;
-    --dark-green:#0d3d2e;
-    --accent-green:#4ecdc4;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Inter',sans-serif;
-    background:#121212;
-}
-
-nav{
-    background-color:var(--primary-green);
-    padding:1rem 2rem;
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.nav-container{
-    max-width:1200px;
-    margin:0 auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.logo{
-    font-size:1.5rem;
-    font-weight:700;
-    color:white;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    gap:0.5rem;
-}
-
-.nav-links{
-    display:flex;
-    list-style:none;
-    gap:2rem;
-}
-
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    font-weight:500;
-    transition:0.3s ease;
-}
-
-.nav-links a:hover{
-    color:var(--accent-green);
-}
-
-.news-section{
-    display:flex;
-    justify-content:center;
-    padding:60px 20px;
-}
-
-.news-wrapper{
-    width:1200px;
-    padding:40px;
-    border-radius:20px;
-    background:linear-gradient(145deg,#2c2c2c,#1f1f1f);
-}
-
-.news-title{
-    font-size:48px;
-    font-weight:700;
-    color:#eaeaea;
-    margin-bottom:40px;
-}
-
-.news-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:40px;
-    max-height:500px;
-    overflow-y:auto;
-    padding-right:10px;
-}
-
-.news-grid::-webkit-scrollbar{
-    width:8px;
-}
-
-.news-grid::-webkit-scrollbar-thumb{
-    background:#666;
-    border-radius:10px;
-}
-
-.news-card{
-    border-radius:18px;
-    overflow:hidden;
-    background:#dcdcdc;
-}
-
-.news-image{
-    height:180px;
-    background:#000;
-    overflow:hidden;
-}
-
-.news-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.news-content{
-    padding:18px;
-}
-
-.news-content h3{
-    font-size:18px;
-    margin-bottom:10px;
-}
-
-.news-content p{
-    font-size:14px;
-    color:#333;
-}
-
-@media(max-width:1000px){
-    .news-grid{
-        grid-template-columns:repeat(2,1fr);
+    :root {
+        --primary-green: #1a7c5c;
+        --dark-green: #0d3d2e;
+        --light-green: #2e9d75;
+        --accent-green: #4ecdc4;
+        --text-light: #ffffff;
+        --text-dark: #e0e0e0;
+        --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        --glass-bg: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.08);
     }
-}
 
-@media(max-width:650px){
-    .news-grid{
-        grid-template-columns:1fr;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
     }
-}
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #000;
+        color: var(--text-dark);
+        overflow-x: hidden;
+        position: relative;
+        min-height: 100vh;
+    }
+
+    .orb-bg {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        background: radial-gradient(circle at 50% 50%, #0a0a0a, #000000);
+    }
+
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.35;
+        will-change: transform;
+    }
+
+    .orb1 { width: 600px; height: 600px; background: var(--primary-green); top: -10%; left: 10%; }
+    .orb2 { width: 500px; height: 500px; background: var(--accent-green); bottom: -5%; right: 10%; }
+    .orb3 { width: 450px; height: 450px; background: var(--light-green); top: 40%; left: 50%; }
+    .orb4 { width: 300px; height: 300px; background: var(--dark-green); top: 20%; right: 30%; }
+
+    .glass-layer {
+        position: relative;
+        z-index: 2;
+        backdrop-filter: blur(60px) saturate(150%);
+        background: rgba(0, 0, 0, 0.4);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav {
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(20px);
+        padding: 1.2rem 4rem;
+        box-shadow: 0 1px 0 var(--glass-border);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--text-light);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        letter-spacing: 1px;
+    }
+
+    .logo i { font-size: 1.6rem; color: var(--accent-green); }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2.5rem;
+    }
+
+    .nav-links a {
+        color: var(--text-dark);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .nav-links a:hover { color: var(--text-light); }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent-green);
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after { width: 100%; }
+
+    .news-section {
+        padding: 3rem 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        flex: 1;
+    }
+
+    .news-title {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 2.5rem;
+        letter-spacing: -0.5px;
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+        padding-right: 10px;
+    }
+
+    .news-grid::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .news-grid::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    .news-card {
+        border-radius: 24px;
+        overflow: hidden;
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        transition: all 0.4s ease;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news-card::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(78, 205, 196, 0.06), transparent 40%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .news-card:hover::before { opacity: 1; }
+
+    .news-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(78, 205, 196, 0.3);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .news-image {
+        height: 200px;
+        background: #000;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .news-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .news-card:hover .news-image img {
+        opacity: 1;
+    }
+
+    .news-content {
+        padding: 1.5rem;
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .news-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-light);
+        font-weight: 600;
+    }
+
+    .news-content p {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.5;
+        flex: 1;
+    }
+
+    footer {
+        background: rgba(0, 0, 0, 0.3);
+        color: var(--text-light);
+        padding: 4rem 2rem;
+        text-align: center;
+        border-top: 1px solid var(--glass-border);
+        margin-top: auto;
+    }
+
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-links a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+    }
+
+    .footer-links a:hover { color: var(--accent-green); }
+
+    .copyright { font-size: 0.9rem; opacity: 0.5; }
+
+    @media (max-width: 1024px) {
+        nav { padding: 1rem 2rem; }
+        .news-section { padding: 2rem; }
+        .news-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+        .nav-links { display: none; }
+        .news-title { font-size: 2rem; }
+        .news-grid { grid-template-columns: 1fr; }
+    }
 </style>
 </head>
 <body>
 
-<nav>
-    <div class="nav-container">
+<div class="orb-bg">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div class="orb orb4"></div>
+</div>
+
+<div class="glass-layer">
+    <nav>
         <a href="#" class="logo">
             <i class="fas fa-shield-alt"></i>
             S - 92
         </a>
-<ul class="nav-links">
-    <li><a href="1.html">Home</a></li>
-    <li><a href="3.html">Learn</a></li>
-    <li><a href="4.html">News</a></li>
-    <li><a href="2.html">Dashboard</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">Contact</a></li>
-    <li><a href="#">Login</a></li>
-    <li><a href="#">Sign Up</a></li>
-</ul>
+        <ul class="nav-links">
+            <li><a href="1.html">Home</a></li>
+            <li><a href="3.html">Learn</a></li>
+            <li><a href="4.html">News</a></li>
+            <li><a href="2.html">Dashboard</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Sign Up</a></li>
+        </ul>
+    </nav>
 
-    </div>
-</nav>
-
-
-<section class="news-section">
-<div class="news-wrapper">
-    <h1 class="news-title">S-92 News</h1>
-
-    <div class="news-grid" id="newsGrid"></div>
-
-        <div class="news-card">
-            <div class="news-image">
-                <img src="https://picsum.photos/400/300?1">
+    <section class="news-section">
+        <h1 class="news-title">News</h1>
+        <div class="news-grid" id="newsGrid">
+            <!-- Static Fallback Cards -->
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://picsum.photos/400/300?1">
+                </div>
+                <div class="news-content">
+                    <h3>Compliance Regulation Update</h3>
+                    <p>New financial compliance guidelines introduced to improve transparency and risk control mechanisms.</p>
+                </div>
             </div>
-            <div class="news-content">
-                <h3>Compliance Regulation Update</h3>
-                <p>New financial compliance guidelines introduced to improve transparency and risk control mechanisms.</p>
+
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://picsum.photos/400/300?2">
+                </div>
+                <div class="news-content">
+                    <h3>AI Audit Framework Launched</h3>
+                    <p>S-92 introduces deterministic audit tracking for regulatory explainability and traceability.</p>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://picsum.photos/400/300?3">
+                </div>
+                <div class="news-content">
+                    <h3>Forex Policy Adjustments</h3>
+                    <p>Revised foreign exchange compliance standards announced for cross-border transaction monitoring.</p>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://picsum.photos/400/300?4">
+                </div>
+                <div class="news-content">
+                    <h3>Banking Risk Assessment Upgrade</h3>
+                    <p>Enhanced AI-based decision engines improve structured regulatory evaluation systems.</p>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://picsum.photos/400/300?5">
+                </div>
+                <div class="news-content">
+                    <h3>Tax Compliance Reform</h3>
+                    <p>Automation and structured rule mapping streamline national taxation reporting processes.</p>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-image">
+                    <img src="https://picsum.photos/400/300?6">
+                </div>
+                <div class="news-content">
+                    <h3>RegTech Innovation 2026</h3>
+                    <p>S-92 expands AI-powered compliance tools across regulated financial ecosystems.</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="news-card">
-            <div class="news-image">
-                <img src="https://picsum.photos/400/300?2">
-            </div>
-            <div class="news-content">
-                <h3>AI Audit Framework Launched</h3>
-                <p>S-92 introduces deterministic audit tracking for regulatory explainability and traceability.</p>
-            </div>
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Support</a>
+            <a href="#">Documentation</a>
         </div>
-
-        <div class="news-card">
-            <div class="news-image">
-                <img src="https://picsum.photos/400/300?3">
-            </div>
-            <div class="news-content">
-                <h3>Forex Policy Adjustments</h3>
-                <p>Revised foreign exchange compliance standards announced for cross-border transaction monitoring.</p>
-            </div>
-        </div>
-
-        <div class="news-card">
-            <div class="news-image">
-                <img src="https://picsum.photos/400/300?4">
-            </div>
-            <div class="news-content">
-                <h3>Banking Risk Assessment Upgrade</h3>
-                <p>Enhanced AI-based decision engines improve structured regulatory evaluation systems.</p>
-            </div>
-        </div>
-
-        <div class="news-card">
-            <div class="news-image">
-                <img src="https://picsum.photos/400/300?5">
-            </div>
-            <div class="news-content">
-                <h3>Tax Compliance Reform</h3>
-                <p>Automation and structured rule mapping streamline national taxation reporting processes.</p>
-            </div>
-        </div>
-
-        <div class="news-card">
-            <div class="news-image">
-                <img src="https://picsum.photos/400/300?6">
-            </div>
-            <div class="news-content">
-                <h3>RegTech Innovation 2026</h3>
-                <p>S-92 expands AI-powered compliance tools across regulated financial ecosystems.</p>
-            </div>
-        </div>
-
-    </div>
+        <p class="copyright">&copy; 2026 S92 Compliance Solutions. All rights reserved.</p>
+    </footer>
 </div>
-</section>
+
 <script>
-async function loadNews() {
-    const response = await fetch("http://127.0.0.1:8000/api/news");
-    const data = await response.json();
+    async function loadNews() {
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/news");
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            const data = await response.json();
+            const container = document.getElementById("newsGrid");
+            container.innerHTML = "";
 
-    const container = document.getElementById("newsGrid");
-    container.innerHTML = "";
+            data.forEach(article => {
+                const card = document.createElement("div");
+                card.className = "news-card";
+                card.onclick = () => openArticle(article.id);
+                
+                card.innerHTML = `
+                    <div class="news-image">
+                        <img src="${article.image_url || 'https://via.placeholder.com/400x300'}" alt="${article.title}">
+                    </div>
+                    <div class="news-content">
+                        <h3>${article.title}</h3>
+                        <p>${article.description || ''}</p>
+                    </div>`;
+                
+                container.appendChild(card);
+            });
+            
+            initCardEffects();
+        } catch (error) {
+            console.log("Using static content due to API error:", error);
+        }
+    }
 
-    data.forEach(article => {
-        container.innerHTML += `
-        <div class="news-card" onclick="openArticle(${article.id})">
-            <div class="news-image">
-                <img src="${article.image_url || 'https://via.placeholder.com/400x300'}">
-            </div>
-            <div class="news-content">
-                <h3>${article.title}</h3>
-                <p>${article.description || ''}</p>
-            </div>
-        </div>`;
+    function openArticle(id) {
+        window.location.href = "article.html?id=" + id;
+    }
+
+    // Orb wiggle effect
+    const orbs = document.querySelectorAll('.orb');
+    window.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+
+        orbs.forEach((orb) => {
+            const rect = orb.getBoundingClientRect();
+            const orbCenterX = rect.left + rect.width / 2;
+            const orbCenterY = rect.top + rect.height / 2;
+
+            const deltaX = mouseX - orbCenterX;
+            const deltaY = mouseY - orbCenterY;
+            
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+            const maxDistance = 600;
+
+            if (distance < maxDistance) {
+                const strength = (maxDistance - distance) / maxDistance;
+                const moveX = -deltaX * strength * 0.3;
+                const moveY = -deltaY * strength * 0.3;
+                const rotate = strength * 15 * (deltaX > 0 ? 1 : -1);
+
+                orb.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotate}deg)`;
+            } else {
+                orb.style.transform = `translate(0px, 0px) rotate(0deg)`;
+            }
+        });
     });
-}
 
-function openArticle(id) {
-    window.location.href = "article.html?id=" + id;
-}
+    // Card glow effect (handles both static and dynamic cards)
+    function initCardEffects() {
+        const cards = document.querySelectorAll('.news-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
 
-loadNews();
+    // Initialize effects on load
+    initCardEffects();
+    loadNews();
 </script>
+
 </body>
 </html>
