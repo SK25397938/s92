@@ -23,6 +23,24 @@ Interactive learning dashboard with structured content
 Clean chat interface with loading feedback
 Modular and scalable backend architecture
 
+What-If Analysis Module
+
+The What-If module is an interactive feature designed to simulate financial scenarios and help users understand the consequences of their decisions before taking action.
+
+It allows users to input hypothetical situations such as sending money abroad, exceeding regulatory limits, or performing specific financial transactions. The system then evaluates the scenario using predefined rules and regulatory guidelines (such as RBI and FEMA) and provides a structured response explaining whether the action is compliant, risky, or restricted.
+
+Key Capabilities
+Scenario-based analysis of financial decisions
+Rule-based compliance evaluation
+Clear explanation of outcomes and risks
+Helps users understand limits, restrictions, and regulatory impact
+Supports better decision-making without real financial risk
+Example Use Cases
+What happens if I send more than the LRS limit?
+Can I use forex for investment abroad?
+What if KYC is not completed?
+What are the consequences of non-compliance?
+
 Setup Instructions
 1. Clone the Repository
 git clone <your-repo-url>
