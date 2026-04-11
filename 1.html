@@ -138,8 +138,6 @@
             justify-content: space-between;
             align-items: center;
         }
-
-        /* ===== NAVBAR ITEMS: START HIDDEN ===== */
         .logo {
             font-size: 1.6rem;
             font-weight: 700;
@@ -169,8 +167,7 @@
             opacity: 0;
             transform: translateX(-50px);
         }
-
-        /* ===== ANIMATION CLASS: ADDED AFTER LOADER ===== */
+\
         .nav-animated .logo {
             animation: navSlideIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
@@ -191,8 +188,7 @@
                 transform: translateX(0);
             }
         }
-
-        /* ===== HERO: ALSO WAITS FOR LOADER ===== */
+        
         .hero-content {
             max-width: 900px;
             margin: 0 auto;
@@ -594,7 +590,6 @@
             }
         }
 
-        /* ===== LOADER ===== */
         .loader {
             width: 60px;
             aspect-ratio: 1;
@@ -724,7 +719,6 @@
             </div>
         </section>
 
-        <!-- FEATURES -->
         <section class="features" id="features">
             <h2 class="section-title">Explore Our Tools</h2>
             <div class="features-container">
@@ -758,7 +752,6 @@
             </div>
         </section>
 
-        <!-- FOOTER -->
         <footer id="footer">
             <div class="footer-content">
                 <div class="footer-logo">
@@ -820,7 +813,6 @@
 
         cards.forEach(card => cardObserver.observe(card));
 
-        /* ===== ORB PARALLAX ===== */
         const orbs = document.querySelectorAll('.orb');
         window.addEventListener('mousemove', (e) => {
             const mouseX = e.clientX;
@@ -845,7 +837,6 @@
             });
         });
 
-        /* ===== BUTTON RIPPLE ===== */
         const rippleStyle = document.createElement('style');
         rippleStyle.textContent = `@keyframes rippleEffect { to { transform: scale(20); opacity: 0; } }`;
         document.head.appendChild(rippleStyle);
@@ -868,7 +859,6 @@
             });
         });
 
-        /* ===== AUTH UI ===== */
         function updateAuthUI() {
             const token = localStorage.getItem("token");
             const authBtn = document.getElementById("authBtn");
@@ -888,22 +878,16 @@
 
         updateAuthUI();
 
-        /* ===== LOADER → TRIGGER NAV + HERO ANIMATIONS ===== */
         window.addEventListener("load", () => {
             const loader = document.getElementById("loader");
             const nav = document.getElementById("mainNav");
             const hero = document.getElementById("hero");
 
             setTimeout(() => {
-                // 1) Fade out the loader
                 loader.classList.add("hide");
-
-                // 2) Small delay so loader fade starts, then trigger nav slide
                 setTimeout(() => {
                     nav.classList.add("nav-animated");
                 }, 200);
-
-                // 3) Hero fades in slightly after nav starts
                 setTimeout(() => {
                     hero.classList.add("hero-animated");
                 }, 500);
