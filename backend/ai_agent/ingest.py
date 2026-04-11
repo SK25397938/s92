@@ -58,15 +58,12 @@ for file in os.listdir(PDF_FOLDER):
                     "page": page_number + 1
                 })
 
-
-# embeddings
 embeddings = model.encode(texts)
 
 dimension = embeddings.shape[1]
 index = faiss.IndexFlatL2(dimension)
 index.add(embeddings)
 
-# BM25 tokens
 tokenized_texts = [text.lower().split() for text in texts]
 
 # save everything
