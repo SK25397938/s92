@@ -68,10 +68,6 @@ class MessageRequest(BaseModel):
     session_id: int
     message: str
 
-
-# ---------------------------
-# CREATE SESSION
-# ---------------------------
 @router.post("/create")
 def create_session(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     session = WhatIfSession(user_id=user.id)
@@ -84,10 +80,6 @@ def create_session(user: User = Depends(get_current_user), db: Session = Depends
         "message": "Session created"
     }
 
-
-# ---------------------------
-# SEND MESSAGE
-# ---------------------------
 @router.post("/message")
 def send_message(
     data: MessageRequest,
@@ -137,10 +129,6 @@ def send_message(
 
     return ai_response
 
-
-# ---------------------------
-# GET HISTORY
-# ---------------------------
 @router.get("/history/{session_id}")
 def get_history(
     session_id: int,
