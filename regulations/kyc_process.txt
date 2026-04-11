@@ -1,0 +1,23 @@
+Title: KYC Process
+
+What is KYC:
+KYC (Know Your Customer) is a mandatory process used by banks to verify identity and prevent fraud.
+
+Documents Required:
+- Identity proof (Aadhaar, PAN, Passport)
+- Address proof (utility bill, rental agreement)
+
+Types of KYC:
+- Full KYC: Complete verification at branch
+- e-KYC: Online verification using Aadhaar OTP
+- Video KYC: Verification through video call
+
+Steps:
+- Submit documents
+- Bank verifies identity
+- Biometric or OTP verification may be required
+- Account becomes fully active after verification
+
+Importance:
+- Prevents fraud and money laundering
+- Mandatory for banking services
