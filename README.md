@@ -1,96 +1,277 @@
-S92 – Intelligent Financial Compliance Assistant
-Overview
+# 💼 S92 – Intelligent Financial Compliance Assistant
 
-S92 is an intelligent finance platform designed to simplify complex banking and regulatory information using AI. It combines a Retrieval-Augmented Generation (RAG) based AI assistant with a structured learning dashboard, enabling users to both ask questions and understand financial compliance concepts.
+## 📖 Overview
 
-The system helps users understand topics such as RBI guidelines, forex regulations, tax compliance, and banking norms in a clear and explainable manner.
+**S92** is an AI-powered financial compliance assistant that simplifies complex banking and regulatory information through **Retrieval-Augmented Generation (RAG)**. The platform combines an intelligent conversational AI with a structured learning dashboard, enabling users to ask finance-related questions and receive accurate, source-backed explanations based on official regulatory documents.
 
-What is S92?
+Designed as a decision-support system, S92 helps users understand regulations issued by organizations such as **RBI**, **FEMA**, and other financial authorities while promoting financial literacy through explainable AI.
 
-S92 is a decision-support and knowledge assistant for financial compliance.
+---
 
-It functions as:
+## ✨ Features
 
-An AI agent that answers queries using real financial documents
-A learning module that provides structured explanations
-An explainable system that shows sources and document references
-Features
-RAG-based AI assistant using financial documents
-Source-backed answers with direct PDF page linking
-Context-aware follow-up question handling
-Filtering of irrelevant or non-finance queries
-Interactive learning dashboard with structured content
-Clean chat interface with loading feedback
-Modular and scalable backend architecture
+- 🤖 AI-powered Financial Compliance Assistant
+- 📚 Retrieval-Augmented Generation (RAG) Architecture
+- 📄 Source-backed responses with document references
+- 🔍 Context-aware follow-up conversations
+- 🚫 Detection and filtering of irrelevant queries
+- 📖 Interactive Learning Dashboard
+- ⚡ Fast semantic document retrieval
+- 💬 Modern Chat Interface with loading animations
+- 🏗️ Modular and scalable backend architecture
 
-What-If Analysis Module
+---
 
-The What-If module is an interactive feature designed to simulate financial scenarios and help users understand the consequences of their decisions before taking action.
+## 🛠️ Tech Stack
 
-It allows users to input hypothetical situations such as sending money abroad, exceeding regulatory limits, or performing specific financial transactions. The system then evaluates the scenario using predefined rules and regulatory guidelines (such as RBI and FEMA) and provides a structured response explaining whether the action is compliant, risky, or restricted.
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
 
-Key Capabilities
-Scenario-based analysis of financial decisions
-Rule-based compliance evaluation
-Clear explanation of outcomes and risks
-Helps users understand limits, restrictions, and regulatory impact
-Supports better decision-making without real financial risk
-Example Use Cases
-What happens if I send more than the LRS limit?
-Can I use forex for investment abroad?
-What if KYC is not completed?
-What are the consequences of non-compliance?
+### Backend
+- Python
+- FastAPI
+- Uvicorn
 
-Setup Instructions
-1. Clone the Repository
-git clone <your-repo-url>
+### AI & Machine Learning
+- Retrieval-Augmented Generation (RAG)
+- LangChain
+- FAISS Vector Database
+- Sentence Transformers
+- OpenAI GPT Models
+
+### Database
+- SQLite
+
+### Libraries
+- PyPDF
+- NumPy
+- Requests
+- python-dotenv
+
+---
+
+## 🧠 Core Modules
+
+### 🤖 AI Compliance Assistant
+
+The chatbot answers finance-related questions using official regulatory documents instead of relying solely on the language model.
+
+Features include:
+
+- Semantic document retrieval
+- Source-backed responses
+- Conversation memory
+- Context-aware follow-up handling
+- Hallucination reduction using RAG
+
+---
+
+### 📚 Learning Dashboard
+
+A structured learning section designed to help users understand financial concepts.
+
+Topics include:
+
+- RBI Guidelines
+- FEMA Regulations
+- Foreign Exchange (Forex)
+- Tax Compliance
+- Banking Procedures
+- Financial Literacy
+
+---
+
+### 📊 What-If Analysis Module
+
+The **What-If Analysis Module** allows users to simulate financial scenarios before making real-world decisions.
+
+Instead of providing generic advice, the system evaluates hypothetical situations using predefined compliance rules and regulatory guidelines.
+
+### Key Capabilities
+
+- 📈 Scenario-based financial analysis
+- ✅ Rule-based compliance evaluation
+- ⚠️ Risk assessment
+- 📄 Regulatory explanation
+- 💡 Decision-support recommendations
+
+---
+
+### Example Scenarios
+
+- What happens if I exceed the LRS limit?
+- Can I invest abroad using Forex?
+- What if my KYC is incomplete?
+- What are the penalties for FEMA violations?
+- Can I transfer money overseas without approval?
+
+---
+
+## ⚙️ How It Works
+
+1. User submits a financial query.
+2. Relevant document chunks are retrieved using semantic search.
+3. The LLM receives both the query and retrieved context.
+4. A grounded response is generated.
+5. Sources and document references are displayed in the UI.
+
+---
+
+## 📂 Project Structure
+
+```text
+S92/
+│
+├── backend/
+│   ├── ai_agent/
+│   │   ├── ingest.py
+│   │   ├── rag_pipeline.py
+│   │   ├── vector_store.py
+│   │   └── ...
+│   │
+│   ├── main.py
+│   └── ...
+│
+├── frontend/
+│   ├── login.html
+│   ├── dashboard.html
+│   ├── chat.html
+│   └── ...
+│
+├── regulations/
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## 🚀 Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/<your-username>/S92.git
 cd S92
-2. Create Virtual Environment
+```
+
+---
+
+### Create Virtual Environment
+
+```bash
 python -m venv venv
+```
+
+Windows
+
+```bash
 venv\Scripts\activate
-3. Install Dependencies
+```
+
+Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+### Install Dependencies
+
+```bash
 pip install -r requirements.txt
-4. Add Environment Variables
+```
 
-Create a .env file in the s92/backend/:
+---
 
+### Configure Environment Variables
+
+Create a `.env` file inside the **backend** directory.
+
+```env
 OPENAI_API_KEY=your_api_key_here
-5. Add Documents for RAG
+```
 
-Place all documents inside:
+---
 
-regulations
+### Add Financial Documents
 
-Include:
+Place all regulatory documents inside:
 
-RBI documents
-Bank PDFs
-Custom structured text guides
+```text
+regulations/
+```
 
+Example documents:
 
-6. Run Ingestion
+- RBI Circulars
+- FEMA Regulations
+- Banking Guidelines
+- Financial Compliance PDFs
+
+---
+
+### Build the Knowledge Base
+
+```bash
 python -m backend.ai_agent.ingest
+```
 
-This step processes documents and stores embeddings for retrieval.
+This processes all documents and creates vector embeddings for semantic retrieval.
 
-7. Start Backend Server
-in the command prompt in vs code type : uvicorn backend.main:app --reload
+---
 
-8. Start frontend
-in new command prompt within vs code type : python -m http.server 5500
-then go to : http://127.0.0.1:5500/login.html
+### Start Backend
 
+```bash
+uvicorn backend.main:app --reload
+```
 
-Example Queries
-What is the LRS limit?
-How to send money abroad?
-What are RBI forex rules?
-How to get a credit card?
+---
 
+### Start Frontend
 
-How It Works
-User submits a query
-System retrieves relevant document chunks
-Language model generates a response using retrieved context
-Sources are mapped to exact document pages
-Structured output is displayed in the UI
+Open another terminal.
+
+```bash
+python -m http.server 5500
+```
+
+Visit:
+
+```
+http://127.0.0.1:5500/login.html
+```
+
+---
+
+## 💬 Example Queries
+
+- What is the Liberalised Remittance Scheme (LRS)?
+- How much money can I send abroad?
+- What are RBI Forex regulations?
+- Explain FEMA in simple terms.
+- What happens if KYC is incomplete?
+- Can I invest in foreign stocks?
+- What are the penalties for non-compliance?
+
+---
+
+## 🚀 Future Enhancements
+
+- 📈 AI-powered financial risk scoring
+- 🧾 Personalized compliance reports
+- 🌍 Multi-language support
+- 📱 Mobile application
+- 🔔 Regulatory update notifications
+- 📊 Interactive analytics dashboard
+- 🎙️ Voice-enabled AI assistant
+- 🏦 Integration with banking APIs
+
+---
+
+## ⭐ Support
+
+If you found this project useful, consider giving it a **⭐ Star** on GitHub!
